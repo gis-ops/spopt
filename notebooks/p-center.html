@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>P-Center Problem &#8212; spopt v0.2.1+0.ga9cda4f.dirty Manual</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pysal-styles.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "tex2jax_ignore|mathjax_ignore|document", "processClass": "tex2jax_process|mathjax_process|math|output_area"}})</script>
+    <link rel="shortcut icon" href="../_static/pysal_favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="P-Median Problem" href="p-median.html" />
+    <link rel="prev" title="Maximal Coverage Location Problem" href="mclp.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          spopt</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.2.1+0.ga9cda4f.dirty</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../installation.html">Installation</a></li>
+                <li><a href="../tutorials.html">Tutorials</a></li>
+                <li><a href="../api.html">API</a></li>
+                <li><a href="../references.html">References</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#installing-released-version">Installing released version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#installing-development-version">Installing development version</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../tutorials.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="maxp.html">Max-P Regionalization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="azp.html">Automatic Zoning Procedure (AZP) algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skater.html">Skater</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ward.html">Ward</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reg-k-means.html">Regional-k-means</a></li>
+<li class="toctree-l2"><a class="reference internal" href="randomregion.html">Random Regions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="facloc-real-world.html">Real World Facility Location Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lscp.html">Location Set Covering Problem (LSCP)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mclp.html">Maximal Coverage Location Problem</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">P-Center Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="p-median.html">P-Median Problem</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#region-methods">Region Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#locate-methods">Locate Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">P-Center Problem</a><ul>
+<li><a class="reference internal" href="#Lattice-10x10">Lattice 10x10</a></li>
+<li><a class="reference internal" href="#Simulate-points-in-a-network">Simulate points in a network</a></li>
+<li><a class="reference internal" href="#Transform-simulated-points-to-real-points">Transform simulated points to real points</a></li>
+<li><a class="reference internal" href="#Calculating-the-cost-matrix">Calculating the cost matrix</a></li>
+<li><a class="reference internal" href="#Using-GeoDataFrame">Using GeoDataFrame</a></li>
+<li><a class="reference internal" href="#Plotting-the-results">Plotting the results</a><ul>
+<li><a class="reference internal" href="#PCenter-built-from-cost-matrix">PCenter built from cost matrix</a></li>
+<li><a class="reference internal" href="#PCenter-from-geodataframes">PCenter from geodataframes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#References">References</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="admonition note">
+<p>This page was generated from <a class="reference external" href="https://github.com/pysal/spopt/blob/main/notebooks/p-center.ipynb">notebooks/p-center.ipynb</a>.
+Interactive online version:
+<span class="raw-html"><a href="https://mybinder.org/v2/gh/pysal/spopt/main?filepath=notebooks/p-center.ipynb"><img alt="Binder badge" src="https://mybinder.org/badge_logo.svg" style="vertical-align:text-bottom"></a></span></p>
+</div>
+<section id="P-Center-Problem">
+<h1>P-Center Problem<a class="headerlink" href="#P-Center-Problem" title="Permalink to this headline">¶</a></h1>
+<p><em>Authors:</em> <a class="reference external" href="https://github.com/gegen07">Germano Barcelos</a>, <a class="reference external" href="https://github.com/jGaboardi">James Gaboardi</a>, <a class="reference external" href="https://github.com/ljwolf">Levi J. Wolf</a>, <a class="reference external" href="https://github.com/qszhao">Qunshan Zhao</a></p>
+<p>Hakimi (1964) introduced the absolute center problem to locate a police station or a hospital such that the maximum distance of the station to a set of communities connected by a highway system is minimized. Hakimi (1965) generalizes the absolute center problem to the p-center problem. Given a set <span class="math notranslate nohighlight">\(X_p=\{x_1,\ldots,x_p\}\)</span> of <span class="math notranslate nohighlight">\(p\)</span> points in graph <span class="math notranslate nohighlight">\(G\)</span>, the distance <span class="math notranslate nohighlight">\(d(X_p, v_j)\)</span> between <span class="math notranslate nohighlight">\(X_p\)</span> and node <span class="math notranslate nohighlight">\(v_j\)</span> is computed as
+<span class="math notranslate nohighlight">\(min_{i=1,\ldots,n}{w_jd(v_j, X_p)}\)</span> is minimized.</p>
+<p>Daskin (2013) proposed a Mixed Integer Programming formulation to discrete p-center problem written as:</p>
+<p><span class="math notranslate nohighlight">\(\begin{array} \displaystyle \textbf{Minimize} &amp; W &amp;&amp; (1)\\ \displaystyle \textbf{Subject to:} &amp; \sum_{j}{y_{ij} = 1} &amp; \forall i &amp; (2) \\  &amp; \sum_{j}{x_{j} = p} &amp;&amp; (3) \\  &amp; y_{ij} \leq x_{j} &amp; \forall i,j &amp; (4) \\  &amp; W \geq \sum_{j}{d_{ij}y_{ij}} &amp; \forall i &amp; (5)\\  &amp; x_{j} \in \{0,1\} &amp; \forall j &amp; (6) \\  &amp; y_{ij} \geq 0 &amp; \forall i,j &amp; (7)\\  \end{array}\)</span></p>
+<p><span class="math notranslate nohighlight">\(\begin{array} \displaystyle \textbf{Where:}\\ &amp; &amp; \displaystyle i &amp; \small = &amp; \textrm{index referencing nodes of the network as demand} \\ &amp; &amp; j &amp; \small = &amp; \textrm{index referencing nodes of the network as potential facility sites} \\ &amp; &amp; d_{ij} &amp; \small = &amp; \textrm{shortest distance or travel time between nodes} i \textrm{and} j \\ &amp; &amp; p &amp; \small = &amp; \textrm{number of facilities to be located} \\ &amp; &amp; x_j &amp; \small = &amp; \begin{cases}  1, \text{if locate at candidate site } j \\  0, \text{otherwise} \\  \end{cases} \\ &amp; &amp; y_{ij} &amp; \small = &amp; \textrm{fraction of demand at node } i \textrm{that is served by a facility at node} j \\ &amp; &amp; W &amp; \small = &amp; \textrm{maximum distance between a demand node and the nearest facility} \\ \end{array}\)</span></p>
+<p>This tutorial solves PCenter using <code class="docutils literal notranslate"><span class="pre">spopt.locate.PCenter</span></code> instance that depends on a array 2D representing the costs between facilities candidate sites and demand points. For that it uses a lattice 10x10 with simulated points to calculate the costs.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>from spopt.locate import PCenter
+from spopt.locate.util import simulated_geo_points
+
+import numpy
+import geopandas
+import pulp
+import spaghetti
+from shapely.geometry import Point
+import matplotlib.pyplot as plt
+</pre></div>
+</div>
+</div>
+<p>Since the model needs a distance cost matrix we should define some variables. In the comments, it’s defined what these variables are for but solver. The solver, assigned below as <code class="docutils literal notranslate"><span class="pre">pulp.PULP_CBC_CMD</span></code>, is an interface to optimization solver developed by <a class="reference external" href="https://github.com/coin-or/Cbc">COIN-OR</a>. If you want to use another optimization interface as Gurobi or CPLEX see this <a class="reference external" href="https://coin-or.github.io/pulp/guides/how_to_configure_solvers.html">guide</a> that explains how to achieve this.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>CLIENT_COUNT = 100 # quantity demand points
+FACILITY_COUNT = 5 # quantity supply points
+
+P_FACILITIES = 4
+
+# Random seeds for reproducibility
+CLIENT_SEED = 5
+FACILITY_SEED = 6
+
+solver = pulp.PULP_CBC_CMD(msg=False) # see solvers available in pulp reference
+</pre></div>
+</div>
+</div>
+<section id="Lattice-10x10">
+<h2>Lattice 10x10<a class="headerlink" href="#Lattice-10x10" title="Permalink to this headline">¶</a></h2>
+<p>Create lattice 10x10 with 9 vertical lines in interior.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>lattice = spaghetti.regular_lattice((0, 0, 10, 10), 9, exterior=True)
+ntw = spaghetti.Network(in_data=lattice)
+</pre></div>
+</div>
+</div>
+<p>Transform spaghetti instance to geopandas geodataframe.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>street = spaghetti.element_as_gdf(ntw, arcs=True)
+
+street_buffered = geopandas.GeoDataFrame(
+    geopandas.GeoSeries(street[&quot;geometry&quot;].buffer(0.2).unary_union),
+    crs=street.crs,
+    columns=[&quot;geometry&quot;],
+)
+</pre></div>
+</div>
+</div>
+<p>Plotting the network created by spaghetti we can verify that it seems a district with quarters and streets.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>street.plot()
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;AxesSubplot:&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_p-center_10_1.png" src="../_images/notebooks_p-center_10_1.png" />
+</div>
+</div>
+</section>
+<section id="Simulate-points-in-a-network">
+<h2>Simulate points in a network<a class="headerlink" href="#Simulate-points-in-a-network" title="Permalink to this headline">¶</a></h2>
+<p>The function <code class="docutils literal notranslate"><span class="pre">simulated_geo_points</span></code> simulates points inside a network. In this case, it uses a lattice network 10x10 created by using spaghetti package. Below we use the function defined above and simulate the points inside lattice bounds.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>client_points = simulated_geo_points(street_buffered, needed=CLIENT_COUNT, seed=CLIENT_SEED)
+facility_points = simulated_geo_points(
+    street_buffered, needed=FACILITY_COUNT, seed=FACILITY_SEED
+)
+</pre></div>
+</div>
+</div>
+<p>Plotting the 100 client and 5 facility points we can see that the function generates dummy points to an area of 10x10 which is the area created by our lattice created on previous cells.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>fig, ax = plt.subplots(figsize=(6, 6))
+street.plot(ax=ax, alpha=0.8, zorder=1, label=&#39;streets&#39;)
+facility_points.plot(ax=ax, color=&#39;red&#39;, zorder=2, label=&#39;facility candidate sites ($n$=5)&#39;)
+client_points.plot(ax=ax, color=&#39;black&#39;, label=&#39;clients points ($n$=100)&#39;)
+plt.legend(loc=&#39;upper left&#39;, bbox_to_anchor=(1.05, 1))
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.legend.Legend at 0x7fb7cc2556d0&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_p-center_15_1.png" src="../_images/notebooks_p-center_15_1.png" />
+</div>
+</div>
+</section>
+<section id="Transform-simulated-points-to-real-points">
+<h2>Transform simulated points to real points<a class="headerlink" href="#Transform-simulated-points-to-real-points" title="Permalink to this headline">¶</a></h2>
+<p>To use cost matrix or geodataframes we have to pay attention in some details. The client and facility points simulated don’t belong to network, so if we calculate the distances now we are supposed to receive a wrong result. Before calculating distances we snap points to the networok and then calculate the distances.</p>
+<p>Below we snap points that is not spatially belong to network and create new real points geodataframes.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>ntw.snapobservations(client_points, &quot;clients&quot;, attribute=True)
+clients_snapped = spaghetti.element_as_gdf(
+    ntw, pp_name=&quot;clients&quot;, snapped=True
+)
+
+ntw.snapobservations(facility_points, &quot;facilities&quot;, attribute=True)
+facilities_snapped = spaghetti.element_as_gdf(
+    ntw, pp_name=&quot;facilities&quot;, snapped=True
+)
+</pre></div>
+</div>
+</div>
+<p>Now the plot seems more organized as the points belong to network. The network created is plotted below with facility points and clients points:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>fig, ax = plt.subplots(figsize=(6, 6))
+street.plot(ax=ax, alpha=0.8, zorder=1, label=&#39;streets&#39;)
+facilities_snapped.plot(ax=ax, color=&#39;red&#39;, zorder=2, label=&#39;facility candidate sites ($n$=5)&#39;)
+clients_snapped.plot(ax=ax, color=&#39;black&#39;, label=&#39;clients points ($n$=100)&#39;)
+plt.legend(loc=&#39;upper left&#39;, bbox_to_anchor=(1.05, 1))
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.legend.Legend at 0x7fb7cc189910&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_p-center_21_1.png" src="../_images/notebooks_p-center_21_1.png" />
+</div>
+</div>
+</section>
+<section id="Calculating-the-cost-matrix">
+<h2>Calculating the cost matrix<a class="headerlink" href="#Calculating-the-cost-matrix" title="Permalink to this headline">¶</a></h2>
+<p>Calculate distance between clients and facilities.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>cost_matrix = ntw.allneighbordistances(
+    sourcepattern=ntw.pointpatterns[&quot;clients&quot;],
+    destpattern=ntw.pointpatterns[&quot;facilities&quot;],
+)
+</pre></div>
+</div>
+</div>
+<p>The expected result here is a Dijkstra distance between clients and facilities points, so we our case an array 2D 100x5.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>cost_matrix
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[12.60302601,  3.93598651,  8.16571655,  6.04319467,  5.65607701],
+       [13.10096347,  4.43392397,  8.66365401,  6.54113213,  5.15813955],
+       [ 6.9095462 ,  4.2425067 ,  2.47223674,  0.34971486,  5.34955682],
+       [ 2.98196832,  7.84581224,  3.45534114,  3.57786302,  6.25374871],
+       [ 7.5002892 ,  6.32806975,  4.55779979,  6.43527791, 11.75939222],
+       [ 0.60209077, 11.42987132,  5.03940023,  7.16192211,  9.8378078 ],
+       [ 5.37335867,  6.20113923,  2.43086927,  4.30834738,  9.6324617 ],
+       [ 5.40801577,  5.41976478,  3.02929369,  1.15181557,  4.85108725],
+       [ 3.68807115,  8.51585171,  2.12538061,  4.24790249,  7.94717417],
+       [14.22503627,  4.60274429,  9.78772681,  7.66520493,  4.98931924],
+       [10.32521229,  4.99225179,  7.38272288,  9.260201  , 14.58431531],
+       [ 6.65436171,  7.98732222,  5.59685112,  3.719373  ,  2.58135531],
+       [11.55510375,  1.11193575,  7.11779429,  5.37988496, 10.70399927],
+       [10.90832519,  1.75871431,  6.47101573,  6.02666352, 11.35077783],
+       [ 9.29354019,  9.53424036,  7.14376926,  5.26629115,  0.05782317],
+       [11.25279502,  3.57498553,  6.81548556,  4.69296368,  6.01707799],
+       [ 6.14400601, 11.47696651,  9.08649542,  7.2090173 ,  3.09171102],
+       [10.43008909,  2.23695041,  5.99277963,  6.50489962, 11.82901393],
+       [ 1.79838406, 11.13134457,  4.74087347,  6.86339535,  9.53928104],
+       [ 2.93052752,  7.89725303,  3.50678194,  3.62930382,  6.30518951],
+       [11.55272282,  6.21976231,  8.61023341, 10.48771153, 15.81182584],
+       [ 8.83964081,  3.66742137,  5.89715141,  7.77462952, 13.09874384],
+       [ 4.11777697,  9.45073748,  7.06026638,  5.18278826,  7.11794005],
+       [ 8.69768642,  8.63527408,  5.75519701,  7.63267513, 12.95678945],
+       [ 8.2652832 ,  6.56249735,  4.79222739,  2.66970551,  3.02956617],
+       [ 1.71437731,  9.6185832 ,  3.2281121 ,  5.35063398,  8.02651967],
+       [ 4.30308213,  6.52469842,  2.13422733,  2.25674921,  5.95602089],
+       [ 9.31612329,  8.64908379,  6.25861269,  4.38113458,  0.94297974],
+       [ 2.86540683, 13.69318738,  7.30271629,  9.42523817, 12.10112386],
+       [ 8.95995574,  2.29291624,  4.52264628,  6.4001244 , 11.72423871],
+       [10.54288208,  7.87584258,  6.10557262,  3.98305074,  1.71622094],
+       [ 8.58885878,  8.74410173,  5.64636937,  7.52384749, 12.8479618 ],
+       [ 2.51163835, 12.82132215,  6.43085106,  8.55337294, 11.22925863],
+       [ 5.19213144,  5.63564912,  0.75482198,  1.74285727,  7.06697159],
+       [ 4.1276352 , 13.2053253 ,  6.81485421,  8.93737609, 11.61326178],
+       [ 3.99217608,  6.83560448,  0.44513338,  2.94281263,  6.75645905],
+       [ 5.88198594, 11.21494644,  8.82447535,  6.94699723,  5.35373109],
+       [ 8.24225403,  4.58552653,  3.80494457,  1.68242269,  5.006537  ],
+       [10.89255004,  6.22551054,  6.45524058,  4.3327187 ,  3.36655299],
+       [ 6.58504851, 11.91800902,  9.52753792,  7.6500598 ,  2.65066851],
+       [ 5.44204086,  8.77500136,  6.38453026,  4.50705215,  3.79367617],
+       [ 5.56289993,  7.26488062,  4.87440953,  2.99693141,  3.6728171 ],
+       [ 7.96716366, 10.86061689,  8.4701458 ,  6.59266768,  1.26855337],
+       [ 7.9603294 ,  5.3726311 ,  5.01783999,  6.89531811, 12.21943243],
+       [ 8.68198919,  4.65097132,  5.73949978,  7.6169779 , 12.94109221],
+       [ 9.06064716,  8.39360767,  6.00313657,  4.12565845,  1.19845586],
+       [15.325265  ,  4.65822551, 10.88795554,  8.76543366,  6.08954798],
+       [ 3.51444772,  7.81851278,  1.95175718,  3.92572094,  7.77355074],
+       [ 3.33469883, 14.16247938,  7.77200828,  9.89453017, 12.57041585],
+       [ 4.46482284,  6.36295772,  1.40731225,  2.0950085 ,  5.79428018],
+       [11.20742649,  1.459613  ,  6.77011704,  5.72756222, 11.05167653],
+       [11.15442417,  5.67335639,  6.71711471,  4.59459283,  3.91870714],
+       [ 5.17021584,  5.65756471,  0.73290638,  2.6103845 ,  7.93449881],
+       [ 5.54400588, 10.87696639,  8.48649529,  6.60901717,  5.28490286],
+       [ 5.28695668,  8.04600382,  2.34446727,  4.22194539,  9.5460597 ],
+       [ 7.33259845,  6.66555896,  4.27508786,  2.39760974,  2.92650457],
+       [ 8.08642618, 10.74135437,  8.35088328,  6.47340516,  1.14929085],
+       [ 7.97403829,  2.85374226,  3.53672884,  4.96095042, 10.28506473],
+       [ 5.04455411,  6.2884064 ,  2.1020647 ,  3.97954282,  9.30365713],
+       [ 8.05520721,  3.2777533 ,  5.1127178 ,  6.99019592, 12.31431023],
+       [ 8.033197  ,  3.2997635 ,  5.09070759,  6.96818571, 12.29230002],
+       [ 4.88391014,  5.94387041,  3.55339931,  1.6759212 ,  4.62480712],
+       [ 3.38092176,  9.44685879,  6.32341117,  5.17890958,  7.85479527],
+       [ 5.83945489,  5.17241539,  2.78194429,  0.90446618,  4.41964814],
+       [10.25764123,  4.57013932,  5.82033178,  3.69780989,  5.02192421],
+       [ 3.16471551,  8.168245  ,  1.7777739 ,  3.90029578,  7.59956747],
+       [ 8.83620663,  8.49675387,  5.89371722,  7.77119534, 13.09530965],
+       [ 7.60754658,  6.94050708,  4.55003599,  2.67255787,  2.65155644],
+       [ 4.14555919,  9.4785197 ,  7.0880486 ,  5.21057048,  5.09015784],
+       [ 7.24126831,  4.57422881,  2.80395885,  0.68143697,  5.01783472],
+       [ 5.70322513,  8.53100569,  2.76073572,  4.63821384,  9.96232815],
+       [ 9.27617639,  9.55160416,  7.16113307,  5.28365495,  0.04045936],
+       [ 2.5651854 , 11.39296595,  5.00249486,  7.12501674,  9.80090243],
+       [14.22296519,  3.5559257 ,  9.78565573,  7.66313385,  6.03613783],
+       [ 8.33806089,  2.48971967,  3.90075143,  5.77822955, 11.10234386],
+       [14.34079531,  3.51301476,  9.90348585,  7.78096397,  7.91830771],
+       [ 7.55811406,  6.89107456,  4.50060346,  2.62312535,  2.70098897],
+       [ 9.54667188,  8.87963238,  6.48916129,  4.61168317,  0.71243114],
+       [ 6.99771477,  3.83006578,  2.56040532,  2.43788343,  7.76199775],
+       [10.85478728,  4.18774778,  6.41747782,  4.29495594,  5.40431574],
+       [ 6.89563349,  8.43732701,  3.95314408,  5.8306222 , 11.15473651],
+       [12.29945454,  3.63241504,  7.86214508,  5.7396232 ,  5.95964848],
+       [ 6.57929244,  6.75366806,  3.63680304,  5.51428115, 10.83839547],
+       [ 8.35675866,  8.47102189,  6.0805508 ,  4.20307268,  1.90234436],
+       [11.26183   ,  1.40520949,  6.82452055,  5.67315871, 10.99727302],
+       [ 6.92663397,  8.25959447,  5.86912337,  3.99164526,  2.30908306],
+       [ 6.97410775,  3.8536728 ,  2.53679829,  3.96088096,  9.28499527],
+       [10.00715257,  8.82062799,  6.94964198,  4.92783614,  0.77143554],
+       [ 8.83013405,  7.9976465 ,  5.77262346,  3.89514534,  1.59441703],
+       [ 6.69445759,  4.63850292,  2.86823295,  4.74571107, 10.06982539],
+       [ 2.60649588, 11.43427644,  5.04380534,  7.16632722,  9.84221291],
+       [ 9.01806225,  4.31489826,  6.07557284,  7.95305096, 13.27716527],
+       [ 7.49191577,  3.84104474,  4.07077477,  5.94825289, 11.2723672 ],
+       [ 7.80056437,  9.53239613,  4.85807497,  6.73555308, 12.0596674 ],
+       [ 8.85156915,  2.48139135,  4.71112139,  6.58859951, 11.91271382],
+       [10.04988811,  2.61715138,  5.61257866,  6.8851006 , 12.20921491],
+       [ 3.68039673,  7.65256378,  1.26209268,  3.38461456,  7.08388625],
+       [10.04984807,  7.28311243,  7.10735867,  8.98483678, 14.3089511 ],
+       [ 8.34309643, 10.48468413,  8.09421303,  6.21673491,  0.8926206 ],
+       [14.48203148,  3.65425093, 10.04472202,  7.92220014,  7.77707154]])
+</pre></div></div>
+</div>
+<p>With <code class="docutils literal notranslate"><span class="pre">PCenter.from_cost_matrix</span></code> we model the PCenter problem to minimize the maximum distance between a client and a facility point using 4 facility sites and the cost matrix calculated previously.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>pcenter_from_cost_matrix = PCenter.from_cost_matrix(cost_matrix, p_facilities=P_FACILITIES)
+pcenter_from_cost_matrix = pcenter_from_cost_matrix.solve(solver)
+</pre></div>
+</div>
+</div>
+<p>Expected result is an instance of PCenter.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>pcenter_from_cost_matrix
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;spopt.locate.p_center.PCenter at 0x7fb7cc02b8e0&gt;
+</pre></div></div>
+</div>
+</section>
+<section id="Using-GeoDataFrame">
+<h2>Using GeoDataFrame<a class="headerlink" href="#Using-GeoDataFrame" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>clients_snapped
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>geometry</th>
+      <th>comp_label</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>POINT (2.00000 8.85562)</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>POINT (2.00000 9.35355)</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>POINT (5.00000 6.16214)</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>POINT (7.76544 5.00000)</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>POINT (3.00000 1.75230)</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>95</th>
+      <td>95</td>
+      <td>POINT (0.00000 4.30248)</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>96</th>
+      <td>96</td>
+      <td>POINT (6.00000 3.42781)</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>97</th>
+      <td>97</td>
+      <td>POINT (2.20274 0.00000)</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>98</th>
+      <td>98</td>
+      <td>POINT (7.40431 10.00000)</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>99</th>
+      <td>99</td>
+      <td>POINT (0.00000 8.73462)</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+<p>100 rows × 3 columns</p>
+</div></div>
+</div>
+<p>With <code class="docutils literal notranslate"><span class="pre">PCenter.from_geodataframe</span></code> we model the PCenter problem to minimize the maximum distance between a client and a facility point using 4 facility sites and geodataframes without calculating the cost matrix previously.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>pcenter_from_geodataframe = PCenter.from_geodataframe(
+    clients_snapped,
+    facilities_snapped,
+    &quot;geometry&quot;,
+    &quot;geometry&quot;,
+    p_facilities=P_FACILITIES,
+    distance_metric=&quot;euclidean&quot;
+)
+pcenter_from_geodataframe = pcenter_from_geodataframe.solve(solver)
+</pre></div>
+</div>
+</div>
+<p>Expected result is an instance of PCenter.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>pcenter_from_geodataframe
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;spopt.locate.p_center.PCenter at 0x7fb81c6dc0d0&gt;
+</pre></div></div>
+</div>
+</section>
+<section id="Plotting-the-results">
+<h2>Plotting the results<a class="headerlink" href="#Plotting-the-results" title="Permalink to this headline">¶</a></h2>
+<p>The cell below describe the plotting of the results. For each method from PCenter class (from_cost_matrix, from_geodataframe) there is a plot displaying the facility site that was selected with a star colored and the points covered with the same color. Sometimes the demand points will be colored with not expected colors, it represents the coverage overlapping.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>from matplotlib.patches import Patch
+import matplotlib.lines as mlines
+
+dv_colors = [
+    &quot;darkcyan&quot;,
+    &quot;mediumseagreen&quot;,
+    &quot;cyan&quot;,
+    &quot;darkslategray&quot;,
+    &quot;lightskyblue&quot;,
+    &quot;limegreen&quot;,
+    &quot;darkgoldenrod&quot;,
+    &quot;peachpuff&quot;,
+    &quot;coral&quot;,
+    &quot;mediumvioletred&quot;,
+    &quot;blueviolet&quot;,
+    &quot;fuchsia&quot;,
+    &quot;thistle&quot;,
+    &quot;lavender&quot;,
+    &quot;saddlebrown&quot;,
+]
+
+def plot_results(model, facility_points):
+    arr_points = []
+    fac_sites = []
+
+    for i in range(FACILITY_COUNT):
+        if model.fac2cli[i]:
+
+            geom = client_points.iloc[model.fac2cli[i]][&#39;geometry&#39;]
+            arr_points.append(geom)
+            fac_sites.append(i)
+
+    fig, ax = plt.subplots(figsize=(6, 6))
+    legend_elements = []
+
+    street.plot(ax=ax, alpha=1, color=&#39;black&#39;, zorder=1)
+    legend_elements.append(mlines.Line2D(
+        [],
+        [],
+        color=&#39;black&#39;,
+        label=&#39;streets&#39;,
+    ))
+
+    facility_points.plot(ax=ax, color=&#39;brown&#39;, marker=&quot;*&quot;, markersize=80, zorder=2)
+    legend_elements.append(mlines.Line2D(
+        [],
+        [],
+        color=&#39;brown&#39;,
+        marker=&quot;*&quot;,
+        linewidth=0,
+        label=f&#39;facility sites ($n$={FACILITY_COUNT})&#39;
+    ))
+
+    for i in range(len(arr_points)):
+        gdf = geopandas.GeoDataFrame(arr_points[i])
+
+        label = f&quot;coverage_points by y{fac_sites[i]}&quot;
+        legend_elements.append(Patch(facecolor=dv_colors[i], edgecolor=&quot;k&quot;, label=label))
+
+        gdf.plot(ax=ax, zorder=3, alpha=0.7, edgecolor=&quot;k&quot;, color=dv_colors[i], label=label)
+        facility_points.iloc[[fac_sites[i]]].plot(ax=ax,
+                                marker=&quot;*&quot;,
+                                markersize=200 * 3.0,
+                                alpha=0.8,
+                                zorder=4,
+                                edgecolor=&quot;k&quot;,
+                                facecolor=dv_colors[i])
+
+        legend_elements.append(mlines.Line2D(
+            [],
+            [],
+            color=dv_colors[i],
+            marker=&quot;*&quot;,
+            ms=20 / 2,
+            markeredgecolor=&quot;k&quot;,
+            linewidth=0,
+            alpha=0.8,
+            label=f&quot;y{fac_sites[i]} facility selected&quot;,
+        ))
+
+    plt.title(&quot;P-Center&quot;, fontweight=&quot;bold&quot;)
+    plt.legend(handles = legend_elements, loc=&#39;upper left&#39;, bbox_to_anchor=(1.05, 1))
+</pre></div>
+</div>
+</div>
+<section id="PCenter-built-from-cost-matrix">
+<h3>PCenter built from cost matrix<a class="headerlink" href="#PCenter-built-from-cost-matrix" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>pcenter_from_cost_matrix.facility_client_array()
+plot_results(pcenter_from_cost_matrix, facility_points)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_p-center_41_0.png" src="../_images/notebooks_p-center_41_0.png" />
+</div>
+</div>
+</section>
+<section id="PCenter-from-geodataframes">
+<h3>PCenter from geodataframes<a class="headerlink" href="#PCenter-from-geodataframes" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>pcenter_from_geodataframe.facility_client_array()
+plot_results(pcenter_from_geodataframe, facility_points)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_p-center_43_0.png" src="../_images/notebooks_p-center_43_0.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="References">
+<h2>References<a class="headerlink" href="#References" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="doi:10.1287/opre.13.3.462">Hakimi, S. L. (1965). Optimum Distribution of Switching Centers in a Communication Network and Some Related Graph Theoretic Problems. Operations Research, 13(3), 462–475.</a></p></li>
+<li><p><a class="reference external" href="https://doi.org/10.1287/opre.12.3.450">Hakimi, S. L. “Optimum Locations of Switching Centers and the Absolute Centers and Medians of a Graph.” Operations Research, vol. 12, no. 3, 1964, pp. 450–459.</a></p></li>
+<li><p><a class="reference external" href="https://doi.org/10.1007/978-3-319-13111-5_4">Calik H., Labbé M., Yaman H. (2015) p-Center Problems. In: Laporte G., Nickel S., Saldanha da Gama F. (eds) Location Science. Springer, Cham.</a></p></li>
+<li><p><a class="reference external" href="https://onlinelibrary.wiley.com/doi/book/10.1002/9781118537015">Daskin, M. S. (2013). Network and Discrete Location: Models, Algorithms, and Applications (2nd ed.). Wiley.</a></p></li>
+</ul>
+</section>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../_sources/notebooks/p-center.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2020-, pysal developers.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.2.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

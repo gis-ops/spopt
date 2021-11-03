@@ -1,0 +1,1774 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Real World Facility Location Problem &#8212; spopt v0.2.1+0.ga9cda4f.dirty Manual</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pysal-styles.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "tex2jax_ignore|mathjax_ignore|document", "processClass": "tex2jax_process|mathjax_process|math|output_area"}})</script>
+    <link rel="shortcut icon" href="../_static/pysal_favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Location Set Covering Problem (LSCP)" href="lscp.html" />
+    <link rel="prev" title="Random Regions" href="randomregion.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          spopt</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.2.1+0.ga9cda4f.dirty</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../installation.html">Installation</a></li>
+                <li><a href="../tutorials.html">Tutorials</a></li>
+                <li><a href="../api.html">API</a></li>
+                <li><a href="../references.html">References</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#installing-released-version">Installing released version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#installing-development-version">Installing development version</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../tutorials.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="maxp.html">Max-P Regionalization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="azp.html">Automatic Zoning Procedure (AZP) algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skater.html">Skater</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ward.html">Ward</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reg-k-means.html">Regional-k-means</a></li>
+<li class="toctree-l2"><a class="reference internal" href="randomregion.html">Random Regions</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Real World Facility Location Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lscp.html">Location Set Covering Problem (LSCP)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mclp.html">Maximal Coverage Location Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="p-center.html">P-Center Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="p-median.html">P-Median Problem</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#region-methods">Region Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#locate-methods">Locate Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Real World Facility Location Problem</a><ul>
+<li><a class="reference internal" href="#LSCP">LSCP</a></li>
+<li><a class="reference internal" href="#MCLP">MCLP</a><ul>
+<li><a class="reference internal" href="#MCLP-Percentage-Covered">MCLP Percentage Covered</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#P-Center">P-Center</a></li>
+<li><a class="reference internal" href="#P-Median">P-Median</a></li>
+<li><a class="reference internal" href="#Using-different-solver-for-one-model">Using different solver for one model</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="admonition note">
+<p>This page was generated from <a class="reference external" href="https://github.com/pysal/spopt/blob/main/notebooks/facloc-real-world.ipynb">notebooks/facloc-real-world.ipynb</a>.
+Interactive online version:
+<span class="raw-html"><a href="https://mybinder.org/v2/gh/pysal/spopt/main?filepath=notebooks/facloc-real-world.ipynb"><img alt="Binder badge" src="https://mybinder.org/badge_logo.svg" style="vertical-align:text-bottom"></a></span></p>
+</div>
+<section id="Real-World-Facility-Location-Problem">
+<h1>Real World Facility Location Problem<a class="headerlink" href="#Real-World-Facility-Location-Problem" title="Permalink to this headline">¶</a></h1>
+<p><em>Authors:</em> <a class="reference external" href="https://github.com/gegen07">Germano Barcelos</a>, <a class="reference external" href="https://github.com/jGaboardi">James Gaboardi</a>, <a class="reference external" href="https://github.com/ljwolf">Levi J. Wolf</a>, <a class="reference external" href="https://github.com/qszhao">Qunshan Zhao</a></p>
+<p>This tutorial aims to show a facility location application. To achieve this goal the tuorial will solve a real world facility location problem using a dataset describing an area of census tract 205, San Francisco. The problem can be written as: store sites should supply the demand in this census tract considering the distance between the two sites, a demand point and a supply candidate site.</p>
+<p>This tutorial model this problem using four models already developed in literature: LSCP (Location Set Covering Problem), MCLP (Maximal Coverage Location Problem), P-Median and P-Center. If you don’t know any of these models, it’s recommended to see the notebooks that explain more deeply about each model: <a class="reference internal" href="lscp.html"><span class="doc">LSCP</span></a>, <a class="reference internal" href="mclp.html"><span class="doc">MCLP</span></a>, <a class="reference internal" href="p-median.html"><span class="doc">P-Median</span></a>, <a class="reference internal" href="p-center.html"><span class="doc">P-Center</span></a></p>
+<p>Besides that, the tutorial show how to use different solvers that <a class="reference external" href="https://github.com/coin-or/pulp">PULP</a> support.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>import numpy
+import geopandas
+import pandas
+import pulp
+from shapely.geometry import Point
+import matplotlib.pyplot as plt
+</pre></div>
+</div>
+</div>
+<p>The problem is composed by 4 datafiles - network_distance is the calculus of distance between facility candidate sites calculated by ArcGIS Network Analyst Extension - demand_points represents the demand points with some important features for the facility location problem like population - facility_points represents the stores that are candidate facility sites - tract is the polygon of census tract 205.</p>
+<p>All datasets are online on this <a class="reference external" href="https://github.com/huanfachen/Open_source_location_cover_models/tree/master/Data/San_Francisco_store">repository</a></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>DIRPATH = &quot;../spopt/tests/data/&quot;
+
+network_distance = pandas.read_csv(DIRPATH+&quot;SF_network_distance_candidateStore_16_censusTract_205_new.csv&quot;)
+demand_points = pandas.read_csv(DIRPATH+ &quot;SF_demand_205_centroid_uniform_weight.csv&quot;, index_col=0)
+facility_points = pandas.read_csv(DIRPATH + &quot;SF_store_site_16_longlat.csv&quot;, index_col=0)
+study_area = geopandas.read_file(DIRPATH + &quot;ServiceAreas_4.shp&quot;).dissolve()
+</pre></div>
+</div>
+</div>
+<p>Display network_distance dataframe</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>display(network_distance)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>distance</th>
+      <th>name</th>
+      <th>DestinationName</th>
+      <th>demand</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>671.573346</td>
+      <td>Store_1</td>
+      <td>60750479.01</td>
+      <td>6540</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1333.708063</td>
+      <td>Store_1</td>
+      <td>60750479.02</td>
+      <td>3539</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1656.188884</td>
+      <td>Store_1</td>
+      <td>60750352.02</td>
+      <td>4436</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1783.006047</td>
+      <td>Store_1</td>
+      <td>60750602.00</td>
+      <td>231</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1790.950612</td>
+      <td>Store_1</td>
+      <td>60750478.00</td>
+      <td>7787</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>3275</th>
+      <td>19643.307257</td>
+      <td>Store_19</td>
+      <td>60816023.00</td>
+      <td>3204</td>
+    </tr>
+    <tr>
+      <th>3276</th>
+      <td>20245.369594</td>
+      <td>Store_19</td>
+      <td>60816029.00</td>
+      <td>4135</td>
+    </tr>
+    <tr>
+      <th>3277</th>
+      <td>20290.986235</td>
+      <td>Store_19</td>
+      <td>60816026.00</td>
+      <td>7887</td>
+    </tr>
+    <tr>
+      <th>3278</th>
+      <td>20875.680521</td>
+      <td>Store_19</td>
+      <td>60816025.00</td>
+      <td>5146</td>
+    </tr>
+    <tr>
+      <th>3279</th>
+      <td>20958.530406</td>
+      <td>Store_19</td>
+      <td>60816024.00</td>
+      <td>6511</td>
+    </tr>
+  </tbody>
+</table>
+<p>3280 rows × 4 columns</p>
+</div></div>
+</div>
+<p>Display demand points dataframe</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>display(demand_points)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>OBJECTID</th>
+      <th>ID</th>
+      <th>NAME</th>
+      <th>STATE_NAME</th>
+      <th>AREA</th>
+      <th>POP2000</th>
+      <th>HOUSEHOLDS</th>
+      <th>HSE_UNITS</th>
+      <th>BUS_COUNT</th>
+      <th>long</th>
+      <th>lat</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>6081602900</td>
+      <td>60816029.00</td>
+      <td>California</td>
+      <td>0.48627</td>
+      <td>4135</td>
+      <td>1679</td>
+      <td>1715</td>
+      <td>112</td>
+      <td>-122.488653</td>
+      <td>37.650807</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>6081602800</td>
+      <td>60816028.00</td>
+      <td>California</td>
+      <td>0.47478</td>
+      <td>4831</td>
+      <td>1484</td>
+      <td>1506</td>
+      <td>59</td>
+      <td>-122.483550</td>
+      <td>37.659998</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>6081601700</td>
+      <td>60816017.00</td>
+      <td>California</td>
+      <td>0.46393</td>
+      <td>4155</td>
+      <td>1294</td>
+      <td>1313</td>
+      <td>55</td>
+      <td>-122.456484</td>
+      <td>37.663272</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>6081601900</td>
+      <td>60816019.00</td>
+      <td>California</td>
+      <td>0.81907</td>
+      <td>9041</td>
+      <td>3273</td>
+      <td>3330</td>
+      <td>118</td>
+      <td>-122.434247</td>
+      <td>37.662385</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>5</td>
+      <td>6081602500</td>
+      <td>60816025.00</td>
+      <td>California</td>
+      <td>0.46603</td>
+      <td>5146</td>
+      <td>1459</td>
+      <td>1467</td>
+      <td>44</td>
+      <td>-122.451187</td>
+      <td>37.640219</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>201</th>
+      <td>204</td>
+      <td>6075011100</td>
+      <td>60750111.00</td>
+      <td>California</td>
+      <td>0.09466</td>
+      <td>5559</td>
+      <td>2930</td>
+      <td>3037</td>
+      <td>362</td>
+      <td>-122.418479</td>
+      <td>37.791082</td>
+    </tr>
+    <tr>
+      <th>202</th>
+      <td>205</td>
+      <td>6075012200</td>
+      <td>60750122.00</td>
+      <td>California</td>
+      <td>0.07211</td>
+      <td>7035</td>
+      <td>3862</td>
+      <td>4074</td>
+      <td>272</td>
+      <td>-122.417237</td>
+      <td>37.785728</td>
+    </tr>
+    <tr>
+      <th>203</th>
+      <td>206</td>
+      <td>6075017601</td>
+      <td>60750176.01</td>
+      <td>California</td>
+      <td>0.24306</td>
+      <td>5756</td>
+      <td>2437</td>
+      <td>2556</td>
+      <td>943</td>
+      <td>-122.410115</td>
+      <td>37.779459</td>
+    </tr>
+    <tr>
+      <th>204</th>
+      <td>207</td>
+      <td>6075017800</td>
+      <td>60750178.00</td>
+      <td>California</td>
+      <td>0.27882</td>
+      <td>5829</td>
+      <td>3115</td>
+      <td>3231</td>
+      <td>807</td>
+      <td>-122.405411</td>
+      <td>37.778934</td>
+    </tr>
+    <tr>
+      <th>205</th>
+      <td>208</td>
+      <td>6075012400</td>
+      <td>60750124.00</td>
+      <td>California</td>
+      <td>0.17496</td>
+      <td>8188</td>
+      <td>4328</td>
+      <td>4609</td>
+      <td>549</td>
+      <td>-122.416455</td>
+      <td>37.782289</td>
+    </tr>
+  </tbody>
+</table>
+<p>205 rows × 11 columns</p>
+</div></div>
+</div>
+<p>Display facility_points dataframe</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>display(facility_points)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>OBJECTID</th>
+      <th>NAME</th>
+      <th>long</th>
+      <th>lat</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>Store_1</td>
+      <td>-122.510018</td>
+      <td>37.772364</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>Store_2</td>
+      <td>-122.488873</td>
+      <td>37.753764</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>Store_3</td>
+      <td>-122.464927</td>
+      <td>37.774727</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>Store_4</td>
+      <td>-122.473945</td>
+      <td>37.743164</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>5</td>
+      <td>Store_5</td>
+      <td>-122.449291</td>
+      <td>37.731545</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>6</td>
+      <td>Store_6</td>
+      <td>-122.491745</td>
+      <td>37.649309</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>7</td>
+      <td>Store_7</td>
+      <td>-122.483182</td>
+      <td>37.701109</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>8</td>
+      <td>Store_11</td>
+      <td>-122.433782</td>
+      <td>37.655364</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>9</td>
+      <td>Store_12</td>
+      <td>-122.438982</td>
+      <td>37.719236</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>10</td>
+      <td>Store_13</td>
+      <td>-122.440218</td>
+      <td>37.745382</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>11</td>
+      <td>Store_14</td>
+      <td>-122.421636</td>
+      <td>37.742964</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>12</td>
+      <td>Store_15</td>
+      <td>-122.430982</td>
+      <td>37.782964</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>13</td>
+      <td>Store_16</td>
+      <td>-122.426873</td>
+      <td>37.769291</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>14</td>
+      <td>Store_17</td>
+      <td>-122.432345</td>
+      <td>37.805218</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>15</td>
+      <td>Store_18</td>
+      <td>-122.412818</td>
+      <td>37.805745</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>16</td>
+      <td>Store_19</td>
+      <td>-122.398909</td>
+      <td>37.797073</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>Plot tract</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>study_area.plot()
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;AxesSubplot:&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_facloc-real-world_11_1.png" src="../_images/notebooks_facloc-real-world_11_1.png" />
+</div>
+</div>
+<p>To start modeling the problem assuming the arguments expected by <code class="docutils literal notranslate"><span class="pre">spopt.locate</span></code>, we should pass a numpy 2D array as a cost_matrix. So, first we pivot the network_distance dataframe.</p>
+<p><em>Note that the columns and rows are in alphabetically order.</em></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>ntw_dist_piv = network_distance.pivot_table(values=&quot;distance&quot;, index=&quot;DestinationName&quot;, columns=&quot;name&quot;)
+ntw_dist_piv
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>name</th>
+      <th>Store_1</th>
+      <th>Store_11</th>
+      <th>Store_12</th>
+      <th>Store_13</th>
+      <th>Store_14</th>
+      <th>Store_15</th>
+      <th>Store_16</th>
+      <th>Store_17</th>
+      <th>Store_18</th>
+      <th>Store_19</th>
+      <th>Store_2</th>
+      <th>Store_3</th>
+      <th>Store_4</th>
+      <th>Store_5</th>
+      <th>Store_6</th>
+      <th>Store_7</th>
+    </tr>
+    <tr>
+      <th>DestinationName</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>60750101.0</th>
+      <td>11495.190454</td>
+      <td>20022.666503</td>
+      <td>10654.593733</td>
+      <td>8232.543149</td>
+      <td>7561.399789</td>
+      <td>4139.772198</td>
+      <td>4805.805279</td>
+      <td>2055.530234</td>
+      <td>225.609240</td>
+      <td>1757.623456</td>
+      <td>11522.519829</td>
+      <td>7529.985950</td>
+      <td>10847.234951</td>
+      <td>10604.729605</td>
+      <td>20970.277793</td>
+      <td>15242.989416</td>
+    </tr>
+    <tr>
+      <th>60750102.0</th>
+      <td>10436.169910</td>
+      <td>19392.094770</td>
+      <td>10024.022001</td>
+      <td>7601.971416</td>
+      <td>6930.828057</td>
+      <td>3093.851654</td>
+      <td>4175.233547</td>
+      <td>1257.809690</td>
+      <td>1041.911304</td>
+      <td>2333.244000</td>
+      <td>10509.099285</td>
+      <td>6470.965406</td>
+      <td>10216.663219</td>
+      <td>9974.157873</td>
+      <td>20339.706061</td>
+      <td>14612.417684</td>
+    </tr>
+    <tr>
+      <th>60750103.0</th>
+      <td>10746.296811</td>
+      <td>19404.672860</td>
+      <td>10036.600090</td>
+      <td>7614.549505</td>
+      <td>6943.406146</td>
+      <td>3381.778555</td>
+      <td>4187.811636</td>
+      <td>2046.436590</td>
+      <td>744.584403</td>
+      <td>1685.517099</td>
+      <td>10800.926186</td>
+      <td>6778.892307</td>
+      <td>10229.241308</td>
+      <td>9986.735962</td>
+      <td>20352.284150</td>
+      <td>14624.995773</td>
+    </tr>
+    <tr>
+      <th>60750104.0</th>
+      <td>11420.492134</td>
+      <td>19808.368182</td>
+      <td>10440.295413</td>
+      <td>8018.244828</td>
+      <td>7347.101469</td>
+      <td>4044.473877</td>
+      <td>4591.506959</td>
+      <td>2463.736278</td>
+      <td>795.715285</td>
+      <td>1282.217412</td>
+      <td>11308.221508</td>
+      <td>7447.187630</td>
+      <td>10632.936630</td>
+      <td>10390.431285</td>
+      <td>20755.979472</td>
+      <td>15028.691095</td>
+    </tr>
+    <tr>
+      <th>60750105.0</th>
+      <td>11379.443952</td>
+      <td>19583.920000</td>
+      <td>10215.847231</td>
+      <td>7793.796646</td>
+      <td>7122.653287</td>
+      <td>4103.725695</td>
+      <td>4367.058776</td>
+      <td>3320.283731</td>
+      <td>1731.462738</td>
+      <td>249.669959</td>
+      <td>11083.773326</td>
+      <td>7379.539448</td>
+      <td>10408.488448</td>
+      <td>10165.983103</td>
+      <td>20531.531290</td>
+      <td>14804.242913</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>60816025.0</th>
+      <td>17324.066610</td>
+      <td>2722.031291</td>
+      <td>10884.063331</td>
+      <td>14178.007937</td>
+      <td>13891.857275</td>
+      <td>18418.384867</td>
+      <td>16726.951785</td>
+      <td>20834.395022</td>
+      <td>21441.247824</td>
+      <td>20875.680521</td>
+      <td>14662.484617</td>
+      <td>16569.371114</td>
+      <td>12483.322114</td>
+      <td>11926.727459</td>
+      <td>4968.842581</td>
+      <td>8648.054204</td>
+    </tr>
+    <tr>
+      <th>60816026.0</th>
+      <td>15981.172325</td>
+      <td>3647.137006</td>
+      <td>10299.369046</td>
+      <td>13593.313651</td>
+      <td>13307.162990</td>
+      <td>17833.690581</td>
+      <td>16142.257500</td>
+      <td>20249.700736</td>
+      <td>20856.553539</td>
+      <td>20290.986235</td>
+      <td>14050.290332</td>
+      <td>15963.776829</td>
+      <td>11871.527828</td>
+      <td>11342.033174</td>
+      <td>3625.948296</td>
+      <td>7919.659919</td>
+    </tr>
+    <tr>
+      <th>60816027.0</th>
+      <td>14835.342712</td>
+      <td>4581.333336</td>
+      <td>9637.139433</td>
+      <td>12931.084039</td>
+      <td>12644.933377</td>
+      <td>17171.460969</td>
+      <td>15480.027887</td>
+      <td>19587.471124</td>
+      <td>20194.323926</td>
+      <td>19628.756623</td>
+      <td>13341.313338</td>
+      <td>15301.547216</td>
+      <td>11209.298215</td>
+      <td>10679.803561</td>
+      <td>2290.818683</td>
+      <td>7242.830306</td>
+    </tr>
+    <tr>
+      <th>60816028.0</th>
+      <td>13339.491691</td>
+      <td>6392.856372</td>
+      <td>8577.488412</td>
+      <td>11871.433018</td>
+      <td>11585.282356</td>
+      <td>16111.809948</td>
+      <td>14420.376867</td>
+      <td>18527.820103</td>
+      <td>19134.672905</td>
+      <td>18569.105602</td>
+      <td>11845.462317</td>
+      <td>14241.196195</td>
+      <td>10155.147195</td>
+      <td>9620.152540</td>
+      <td>1846.795647</td>
+      <td>5746.979285</td>
+    </tr>
+    <tr>
+      <th>60816029.0</th>
+      <td>15257.855684</td>
+      <td>6394.920365</td>
+      <td>10253.752405</td>
+      <td>13547.697010</td>
+      <td>13261.546349</td>
+      <td>17788.073940</td>
+      <td>16096.640859</td>
+      <td>20204.084095</td>
+      <td>20810.936898</td>
+      <td>20245.369594</td>
+      <td>13763.826309</td>
+      <td>15918.160188</td>
+      <td>11825.911187</td>
+      <td>11296.416533</td>
+      <td>508.931655</td>
+      <td>7665.343278</td>
+    </tr>
+  </tbody>
+</table>
+<p>205 rows × 16 columns</p>
+</div></div>
+</div>
+<p>Here the pivot table is transformed to numpy 2D array such as <code class="docutils literal notranslate"><span class="pre">spopt.locate</span></code> expected. The matrix has a shape of 205x16.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>cost_matrix = ntw_dist_piv.to_numpy()
+cost_matrix
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[11495.19045438, 20022.66650296, 10654.59373325, ...,
+        10604.72960533, 20970.27779306, 15242.98941606],
+       [10436.16991032, 19392.09477041, 10024.0220007 , ...,
+         9974.15787278, 20339.70606051, 14612.41768351],
+       [10746.29681106, 19404.67285964, 10036.60008993, ...,
+         9986.73596201, 20352.28414974, 14624.99577275],
+       ...,
+       [14835.34271218,  4581.3333364 ,  9637.13943331, ...,
+        10679.80356124,  2290.81868301,  7242.83030602],
+       [13339.49169134,  6392.85637207,  8577.48841247, ...,
+         9620.15254039,  1846.79564734,  5746.97928517],
+       [15257.85568393,  6394.92036466, 10253.75240505, ...,
+        11296.41653298,   508.93165475,  7665.34327776]])
+</pre></div></div>
+</div>
+<p>Now, as the rows and columns of our cost_matrix are sorted, so we have to sort our facility points and demand points geodataframes too.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>facility_points_gdf = geopandas.GeoDataFrame(
+    facility_points,
+    geometry=geopandas.points_from_xy(
+        facility_points.long, facility_points.lat
+    ),
+).sort_values(by=[&#39;NAME&#39;]).reset_index()
+
+demand_points_gdf = geopandas.GeoDataFrame(
+    demand_points,
+    geometry=geopandas.points_from_xy(demand_points.long, demand_points.lat),
+).sort_values(by=[&#39;NAME&#39;]).reset_index()
+</pre></div>
+</div>
+</div>
+<p>Here the rest of parameters are set. The ai is the demand weight and in this case we model as population in year 2000 of this tract.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>ai = demand_points_gdf[&#39;POP2000&#39;].to_numpy()
+
+service_dist = 5000
+p_facility = 4
+</pre></div>
+</div>
+</div>
+<p>Below, the method is used to plot the results of the four models that we will prepare to solve the problem.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>from matplotlib.patches import Patch
+import matplotlib.lines as mlines
+from matplotlib_scalebar.scalebar import ScaleBar
+
+dv_colors = [
+    &quot;saddlebrown&quot;,
+    &quot;darkgoldenrod&quot;,
+    &quot;mediumseagreen&quot;,
+    &quot;lightskyblue&quot;,
+    &quot;lavender&quot;,
+    &quot;darkslategray&quot;,
+    &quot;coral&quot;,
+    &quot;mediumvioletred&quot;,
+    &quot;darkcyan&quot;,
+    &quot;cyan&quot;,
+    &quot;limegreen&quot;,
+    &quot;peachpuff&quot;,
+    &quot;blueviolet&quot;,
+    &quot;fuchsia&quot;,
+    &quot;thistle&quot;,
+]
+
+def plot_results(model, facility_points_gdf, demand_points_gdf, facility_count, title, p):
+
+    arr_points = []
+    fac_sites = []
+
+    for i in range(facility_count):
+        if model.fac2cli[i]:
+            geom = demand_points_gdf.iloc[model.fac2cli[i]][&quot;geometry&quot;]
+            arr_points.append(geom)
+            fac_sites.append(i)
+
+    model.uncovered_clients()
+    xcov = model.n_cli_uncov
+
+    fig, ax = plt.subplots(figsize=(10, 15))
+    legend_elements = []
+
+    study_area.plot(ax=ax, alpha=.5, fc=&quot;tan&quot;, ec=&quot;k&quot;, zorder=1)
+    _patch = Patch(alpha=.5, fc=&quot;tan&quot;, ec=&quot;k&quot;, label=&quot;Dissolved Service Areas&quot;)
+    legend_elements.append(_patch)
+
+    demand_points_gdf.plot(
+        ax=ax, fc=&quot;k&quot;, ec=&quot;k&quot;, marker=&quot;s&quot;, markersize=7, zorder=2
+    )
+    legend_elements.append(
+        mlines.Line2D(
+            [],
+            [],
+            marker=&quot;s&quot;,
+            markerfacecolor=&quot;k&quot;,
+            markeredgecolor=&quot;k&quot;,
+            ms=3,
+            linewidth=0,
+            label=f&quot;Demand sites not covered ($n$={xcov})&quot;
+        )
+    )
+
+    facility_points_gdf.plot(
+        ax=ax, fc=&quot;brown&quot;, marker=&quot;*&quot;, markersize=80, zorder=8
+    )
+    legend_elements.append(
+        mlines.Line2D(
+            [],
+            [],
+            marker=&quot;*&quot;,
+            markerfacecolor=&quot;brown&quot;,
+            markeredgecolor=&quot;brown&quot;,
+            ms=7,
+            lw=0,
+            label=f&quot;Store sites ($n$={facility_count})&quot;
+        )
+    )
+
+    _zo, _ms = 4, 4
+    for i in range(len(arr_points)):
+
+        cset = dv_colors[i]
+        fac = fac_sites[i]
+        fname = facility_points_gdf.iloc[[fac]][&quot;NAME&quot;]
+        fname = f&quot;{fname.squeeze().replace(&#39;_&#39;, &#39; &#39;)}&quot;
+
+        gdf = geopandas.GeoDataFrame(arr_points[i])
+
+        label = f&quot;Demand sites covered by {fname}&quot;
+        gdf.plot(ax=ax, zorder=_zo, ec=&quot;k&quot;, fc=cset, markersize=100*_ms)
+        legend_elements.append(
+            mlines.Line2D(
+                [],
+                [],
+                marker=&quot;o&quot;,
+                markerfacecolor=cset,
+                markeredgecolor=&quot;k&quot;,
+                ms= _ms + 7,
+                lw=0,
+                label=label
+            )
+        )
+
+        facility_points_gdf.iloc[[fac]].plot(
+            ax=ax, marker=&quot;*&quot;, markersize=1000, zorder=9, fc=cset, ec=&quot;k&quot;, lw=2
+        )
+        legend_elements.append(
+            mlines.Line2D(
+                [],
+                [],
+                marker=&quot;*&quot;,
+                markerfacecolor=cset,
+                markeredgecolor=&quot;k&quot;,
+                markeredgewidth=2,
+                ms=20,
+                lw=0,
+                label=fname,
+            )
+        )
+
+        _zo += 1
+        _ms -= (1)*(4/p)
+
+    plt.title(title, fontsize=20)
+    kws = dict(loc=&quot;upper left&quot;, bbox_to_anchor=(1.05, .7), fontsize=15)
+    plt.legend(handles=legend_elements, **kws)
+
+    x, y, xyc, arrow_length, c = 0.925, 0.15, &quot;axes fraction&quot;, 0.1 , &quot;center&quot;
+    xy, xyt = (x, y), (x, y-arrow_length)
+    ap = dict(facecolor=&quot;black&quot;, width=5, headwidth=10)
+    kws = dict(arrowprops=ap, ha=c, va=c, fontsize=20)
+    plt.annotate(&quot;N&quot;, xy=xy, xycoords=xyc, xytext=xyt, **kws)
+
+    plt.gca().add_artist(ScaleBar(1))
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>for _df in [facility_points_gdf, demand_points_gdf, study_area]:
+    _df.set_crs(&quot;EPSG:4326&quot;, inplace=True)
+    _df.to_crs(&quot;EPSG:7131&quot;, inplace=True)
+</pre></div>
+</div>
+</div>
+<section id="LSCP">
+<h2>LSCP<a class="headerlink" href="#LSCP" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>from spopt.locate.coverage import LSCP
+
+lscp = LSCP.from_cost_matrix(cost_matrix, service_dist)
+
+lscp = lscp.solve(pulp.GLPK(msg=False))
+
+lscp.facility_client_array()
+plot_results(lscp, facility_points_gdf, demand_points_gdf, facility_points_gdf.shape[0], &quot;LSCP&quot;, lscp.problem.objective.value())
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_facloc-real-world_24_0.png" src="../_images/notebooks_facloc-real-world_24_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>lscp.problem.objective.value()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+8
+</pre></div></div>
+</div>
+</section>
+<section id="MCLP">
+<h2>MCLP<a class="headerlink" href="#MCLP" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>from spopt.locate.coverage import MCLP
+
+mclp = MCLP.from_cost_matrix(
+    cost_matrix,
+    ai,
+    max_coverage=service_dist,
+    p_facilities=4,
+)
+
+mclp = mclp.solve(pulp.GLPK(msg=False))
+
+mclp.facility_client_array()
+plot_results(mclp, facility_points_gdf, demand_points_gdf, facility_points_gdf.shape[0], &quot;MCLP&quot;, 4)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_facloc-real-world_27_0.png" src="../_images/notebooks_facloc-real-world_27_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>mclp.problem.objective.value()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+875247
+</pre></div></div>
+</div>
+<section id="MCLP-Percentage-Covered">
+<h3>MCLP Percentage Covered<a class="headerlink" href="#MCLP-Percentage-Covered" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>mclp.uncovered_clients()
+mclp.get_percentage()
+mclp.percentage
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0.8975609756097561
+</pre></div></div>
+</div>
+</section>
+</section>
+<section id="P-Center">
+<h2>P-Center<a class="headerlink" href="#P-Center" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>from spopt.locate import PCenter
+pcenter = PCenter.from_cost_matrix(
+    cost_matrix, p_facilities=p_facility
+)
+
+pcenter = pcenter.solve(pulp.GLPK(msg=False))
+pcenter.facility_client_array()
+plot_results(pcenter, facility_points_gdf, demand_points_gdf, facility_points_gdf.shape[0], &quot;P-Center&quot;, p_facility)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_facloc-real-world_32_0.png" src="../_images/notebooks_facloc-real-world_32_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>pcenter.problem.objective.value()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+7403.06
+</pre></div></div>
+</div>
+</section>
+<section id="P-Median">
+<h2>P-Median<a class="headerlink" href="#P-Median" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>from spopt.locate import PMedian
+pmedian = PMedian.from_cost_matrix(
+    cost_matrix, ai, p_facilities=p_facility
+)
+
+pmedian = pmedian.solve(pulp.GLPK(msg=False))
+pmedian.facility_client_array()
+plot_results(pmedian, facility_points_gdf, demand_points_gdf, facility_points_gdf.shape[0], &quot;P-Median&quot;, p_facility)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_facloc-real-world_35_0.png" src="../_images/notebooks_facloc-real-world_35_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>pmedian.problem.objective.value()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+2848268129.7145104
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>pmedian.get_mean_distance(weight=ai)
+pmedian.mean_dist
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+2982.1268579890657
+</pre></div></div>
+</div>
+</section>
+<section id="Using-different-solver-for-one-model">
+<h2>Using different solver for one model<a class="headerlink" href="#Using-different-solver-for-one-model" title="Permalink to this headline">¶</a></h2>
+<p>For this task we get the MCLP model as example.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>from spopt.locate.coverage import MCLP
+
+mclp = MCLP.from_cost_matrix(
+            cost_matrix,
+            ai,
+            max_coverage=service_dist,
+            p_facilities=4,
+        )
+</pre></div>
+</div>
+</div>
+<p>First, it’s good to see which solver you have installed in your machine.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>solvers = pulp.listSolvers(onlyAvailable=True)
+solvers
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;GLPK_CMD&#39;, &#39;CPLEX_CMD&#39;, &#39;GUROBI_CMD&#39;, &#39;PULP_CBC_CMD&#39;, &#39;COIN_CMD&#39;]
+</pre></div></div>
+</div>
+<p>Above we can see that it returns a list with different solvers that are available. So, it’s up to user choose the best solver that fits the model. Let’s get the percentage as a metric to evaluate which solver is the best or improves the model.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>import time
+
+for i in range(len(solvers)):
+    solver = pulp.get_solver(solvers[i], msg=False)
+
+    start = time.time()
+    mclp = mclp.solve(solver)
+    end = time.time()
+
+    mclp.facility_client_array()
+    mclp.uncovered_clients()
+    mclp.get_percentage()
+
+    percentage = mclp.percentage
+    time_spent = end-start
+
+    print(f&quot;Solver: {solvers[i]} - Percentage: {percentage} - Time Spent: {time_spent}&quot;)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Solver: GLPK_CMD - Percentage: 0.8975609756097561 - Time Spent: 0.06669068336486816
+Solver: CPLEX_CMD - Percentage: 0.8975609756097561 - Time Spent: 0.08563423156738281
+Solver: GUROBI_CMD - Percentage: 0.8975609756097561 - Time Spent: 0.07414436340332031
+Solver: PULP_CBC_CMD - Percentage: 0.8975609756097561 - Time Spent: 0.06678557395935059
+Solver: COIN_CMD - Percentage: 0.8975609756097561 - Time Spent: 0.05470633506774902
+</pre></div></div>
+</div>
+</section>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../_sources/notebooks/facloc-real-world.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2020-, pysal developers.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.2.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,28 @@
+﻿spopt.locate.coverage.LSCP
+==========================
+
+.. currentmodule:: spopt.locate.coverage
+
+.. autoclass:: LSCP
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~LSCP.__init__
+      ~LSCP.client_facility_array
+      ~LSCP.facility_client_array
+      ~LSCP.from_cost_matrix
+      ~LSCP.from_geodataframe
+      ~LSCP.solve
+      ~LSCP.uncovered_clients
+   
+   
+
+   
+   
+   

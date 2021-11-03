@@ -1,0 +1,29 @@
+﻿spopt.locate.coverage.MCLP
+==========================
+
+.. currentmodule:: spopt.locate.coverage
+
+.. autoclass:: MCLP
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~MCLP.__init__
+      ~MCLP.client_facility_array
+      ~MCLP.facility_client_array
+      ~MCLP.from_cost_matrix
+      ~MCLP.from_geodataframe
+      ~MCLP.get_percentage
+      ~MCLP.solve
+      ~MCLP.uncovered_clients
+   
+   
+
+   
+   
+   

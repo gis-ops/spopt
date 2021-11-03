@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>spopt.locate.p_center &#8212; spopt v0.2.1+0.ga9cda4f.dirty Manual</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pysal-styles.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="shortcut icon" href="../../../_static/pysal_favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../_static/js/jquery-1.12.4.min.js "></script>
+<script type="text/javascript" src="../../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../../_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../index.html">
+          spopt</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.2.1+0.ga9cda4f.dirty</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../../../installation.html">Installation</a></li>
+                <li><a href="../../../tutorials.html">Tutorials</a></li>
+                <li><a href="../../../api.html">API</a></li>
+                <li><a href="../../../references.html">References</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installing-released-version">Installing released version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#installing-development-version">Installing development version</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../notebooks/maxp.html">Max-P Regionalization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../notebooks/azp.html">Automatic Zoning Procedure (AZP) algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../notebooks/skater.html">Skater</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../notebooks/ward.html">Ward</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../notebooks/reg-k-means.html">Regional-k-means</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../notebooks/randomregion.html">Random Regions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../notebooks/facloc-real-world.html">Real World Facility Location Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../notebooks/lscp.html">Location Set Covering Problem (LSCP)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../notebooks/mclp.html">Maximal Coverage Location Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../notebooks/p-center.html">P-Center Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../notebooks/p-median.html">P-Median Problem</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#region-methods">Region Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api.html#locate-methods">Locate Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../references.html">References</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <h1>Source code for spopt.locate.p_center</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">import</span> <span class="nn">pulp</span>
+<span class="kn">from</span> <span class="nn">geopandas</span> <span class="kn">import</span> <span class="n">GeoDataFrame</span>
+
+<span class="kn">from</span> <span class="nn">spopt.locate.base</span> <span class="kn">import</span> <span class="n">BaseOutputMixin</span><span class="p">,</span> <span class="n">LocateSolver</span><span class="p">,</span> <span class="n">FacilityModelBuilder</span>
+<span class="kn">from</span> <span class="nn">scipy.spatial.distance</span> <span class="kn">import</span> <span class="n">cdist</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+
+<div class="viewcode-block" id="PCenter"><a class="viewcode-back" href="../../../generated/spopt.locate.PCenter.html#spopt.locate.PCenter">[docs]</a><span class="k">class</span> <span class="nc">PCenter</span><span class="p">(</span><span class="n">LocateSolver</span><span class="p">,</span> <span class="n">BaseOutputMixin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    PCenter class implements P-Center optimization model and solve it.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name: str</span>
+<span class="sd">        problem name</span>
+<span class="sd">    problem: pulp.LpProblem</span>
+<span class="sd">        pulp instance of optimization model that contains constraints, variables and objective function.</span>
+<span class="sd">    aij: np.array</span>
+<span class="sd">        two-dimensional array product of service load/population demand and distance matrix between facility and demand.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="PCenter.__init__"><a class="viewcode-back" href="../../../generated/spopt.locate.PCenter.html#spopt.locate.PCenter.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">problem</span><span class="p">:</span> <span class="n">pulp</span><span class="o">.</span><span class="n">LpProblem</span><span class="p">,</span> <span class="n">aij</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">problem</span> <span class="o">=</span> <span class="n">problem</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">aij</span> <span class="o">=</span> <span class="n">aij</span></div>
+
+    <span class="k">def</span> <span class="nf">__add_obj</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add objective function to the model:</span>
+<span class="sd">        Minimize W</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">weight</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;weight_var&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">problem</span> <span class="o">+=</span> <span class="n">weight</span><span class="p">,</span> <span class="s2">&quot;objective function&quot;</span>
+
+<div class="viewcode-block" id="PCenter.from_cost_matrix"><a class="viewcode-back" href="../../../generated/spopt.locate.PCenter.html#spopt.locate.PCenter.from_cost_matrix">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_cost_matrix</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span>
+        <span class="n">cost_matrix</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+        <span class="n">p_facilities</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;p-center&quot;</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create PCenter object based on cost matrix</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        cost_matrix: np.array</span>
+<span class="sd">            two-dimensional distance array between facility points and demand point</span>
+<span class="sd">        p_facilities: int</span>
+<span class="sd">            number of facilities to be located</span>
+<span class="sd">        name: str, default=&quot;p-center&quot;</span>
+<span class="sd">            name of the problem</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        PCenter object</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+
+<span class="sd">        &gt;&gt;&gt; from spopt.locate import PCenter</span>
+<span class="sd">        &gt;&gt;&gt; from spopt.locate.util import simulated_geo_points</span>
+<span class="sd">        &gt;&gt;&gt; import pulp</span>
+<span class="sd">        &gt;&gt;&gt; import spaghetti</span>
+
+<span class="sd">        Create regular lattice</span>
+
+<span class="sd">        &gt;&gt;&gt; lattice = spaghetti.regular_lattice((0, 0, 10, 10), 9, exterior=True)</span>
+<span class="sd">        &gt;&gt;&gt; ntw = spaghetti.Network(in_data=lattice)</span>
+<span class="sd">        &gt;&gt;&gt; street = spaghetti.element_as_gdf(ntw, arcs=True)</span>
+<span class="sd">        &gt;&gt;&gt; street_buffered = geopandas.GeoDataFrame(</span>
+<span class="sd">        ...                            geopandas.GeoSeries(street[&quot;geometry&quot;].buffer(0.2).unary_union),</span>
+<span class="sd">        ...                            crs=street.crs,</span>
+<span class="sd">        ...                            columns=[&quot;geometry&quot;])</span>
+
+<span class="sd">        Simulate points belong to lattice</span>
+
+<span class="sd">        &gt;&gt;&gt; demand_points = simulated_geo_points(street_buffered, needed=100, seed=5)</span>
+<span class="sd">        &gt;&gt;&gt; facility_points = simulated_geo_points(street_buffered, needed=5, seed=6)</span>
+
+<span class="sd">        Snap points to the network</span>
+
+<span class="sd">        &gt;&gt;&gt; ntw.snapobservations(demand_points, &quot;clients&quot;, attribute=True)</span>
+<span class="sd">        &gt;&gt;&gt; clients_snapped = spaghetti.element_as_gdf(ntw, pp_name=&quot;clients&quot;, snapped=True)</span>
+<span class="sd">        &gt;&gt;&gt; ntw.snapobservations(facility_points, &quot;facilities&quot;, attribute=True)</span>
+<span class="sd">        &gt;&gt;&gt; facilities_snapped = spaghetti.element_as_gdf(ntw, pp_name=&quot;facilities&quot;, snapped=True)</span>
+
+<span class="sd">        Calculate the cost matrix</span>
+
+<span class="sd">        &gt;&gt;&gt; cost_matrix = ntw.allneighbordistances(</span>
+<span class="sd">        ...    sourcepattern=ntw.pointpatterns[&quot;clients&quot;],</span>
+<span class="sd">        ...    destpattern=ntw.pointpatterns[&quot;facilities&quot;])</span>
+
+<span class="sd">        Create PCenter instance from cost matrix</span>
+
+<span class="sd">        &gt;&gt;&gt; pcenter_from_cost_matrix = PCenter.from_cost_matrix(cost_matrix, p_facilities=4)</span>
+<span class="sd">        &gt;&gt;&gt; pcenter_from_cost_matrix = pcenter_from_cost_matrix.solve(pulp.PULP_CBC_CMD(msg=False))</span>
+
+<span class="sd">        Get facility lookup demand coverage array</span>
+
+<span class="sd">        &gt;&gt;&gt; pcenter_from_cost_matrix.facility_client_array()</span>
+<span class="sd">        &gt;&gt;&gt; pcenter_from_cost_matrix.fac2cli</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">r_cli</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">cost_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">r_fac</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">cost_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="n">model</span> <span class="o">=</span> <span class="n">pulp</span><span class="o">.</span><span class="n">LpProblem</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">pulp</span><span class="o">.</span><span class="n">LpMinimize</span><span class="p">)</span>
+
+        <span class="n">p_center</span> <span class="o">=</span> <span class="n">PCenter</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">cost_matrix</span><span class="p">)</span>
+
+        <span class="n">FacilityModelBuilder</span><span class="o">.</span><span class="n">add_facility_integer_variable</span><span class="p">(</span><span class="n">p_center</span><span class="p">,</span> <span class="n">r_fac</span><span class="p">,</span> <span class="s2">&quot;y[</span><span class="si">{i}</span><span class="s2">]&quot;</span><span class="p">)</span>
+        <span class="n">FacilityModelBuilder</span><span class="o">.</span><span class="n">add_client_assign_integer_variable</span><span class="p">(</span>
+            <span class="n">p_center</span><span class="p">,</span> <span class="n">r_cli</span><span class="p">,</span> <span class="n">r_fac</span><span class="p">,</span> <span class="s2">&quot;z[</span><span class="si">{i}</span><span class="s2">_</span><span class="si">{j}</span><span class="s2">]&quot;</span>
+        <span class="p">)</span>
+        <span class="n">FacilityModelBuilder</span><span class="o">.</span><span class="n">add_weight_continuous_variable</span><span class="p">(</span><span class="n">p_center</span><span class="p">)</span>
+
+        <span class="n">p_center</span><span class="o">.</span><span class="n">__add_obj</span><span class="p">()</span>
+
+        <span class="n">FacilityModelBuilder</span><span class="o">.</span><span class="n">add_facility_constraint</span><span class="p">(</span>
+            <span class="n">p_center</span><span class="p">,</span> <span class="n">p_center</span><span class="o">.</span><span class="n">problem</span><span class="p">,</span> <span class="n">p_facilities</span>
+        <span class="p">)</span>
+        <span class="n">FacilityModelBuilder</span><span class="o">.</span><span class="n">add_assignment_constraint</span><span class="p">(</span>
+            <span class="n">p_center</span><span class="p">,</span> <span class="n">p_center</span><span class="o">.</span><span class="n">problem</span><span class="p">,</span> <span class="n">r_fac</span><span class="p">,</span> <span class="n">r_cli</span>
+        <span class="p">)</span>
+        <span class="n">FacilityModelBuilder</span><span class="o">.</span><span class="n">add_opening_constraint</span><span class="p">(</span>
+            <span class="n">p_center</span><span class="p">,</span> <span class="n">p_center</span><span class="o">.</span><span class="n">problem</span><span class="p">,</span> <span class="n">r_fac</span><span class="p">,</span> <span class="n">r_cli</span>
+        <span class="p">)</span>
+        <span class="n">FacilityModelBuilder</span><span class="o">.</span><span class="n">add_minimized_maximum_constraint</span><span class="p">(</span>
+            <span class="n">p_center</span><span class="p">,</span> <span class="n">p_center</span><span class="o">.</span><span class="n">problem</span><span class="p">,</span> <span class="n">cost_matrix</span><span class="p">,</span> <span class="n">r_fac</span><span class="p">,</span> <span class="n">r_cli</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">p_center</span></div>
+
+<div class="viewcode-block" id="PCenter.from_geodataframe"><a class="viewcode-back" href="../../../generated/spopt.locate.PCenter.html#spopt.locate.PCenter.from_geodataframe">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_geodataframe</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span>
+        <span class="n">gdf_demand</span><span class="p">:</span> <span class="n">GeoDataFrame</span><span class="p">,</span>
+        <span class="n">gdf_fac</span><span class="p">:</span> <span class="n">GeoDataFrame</span><span class="p">,</span>
+        <span class="n">demand_col</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">facility_col</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">p_facilities</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">distance_metric</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;euclidean&quot;</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;p-center&quot;</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a PCenter object based on geodataframes. Calculate the cost matrix between demand and facility,</span>
+<span class="sd">        and then use from_cost_matrix method.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        gdf_demand: geopandas.GeoDataFrame</span>
+<span class="sd">            demand geodataframe with point geometry</span>
+<span class="sd">        gdf_fac: geopandas.GeoDataframe</span>
+<span class="sd">            facility geodataframe with point geometry</span>
+<span class="sd">        demand_col: str</span>
+<span class="sd">            demand geometry column name</span>
+<span class="sd">        facility_col: str</span>
+<span class="sd">            facility candidate sites geometry column name</span>
+<span class="sd">        p_facilities: int</span>
+<span class="sd">            number of facilities to be located</span>
+<span class="sd">        distance_metric: str, default=&quot;euclidean&quot;</span>
+<span class="sd">            metrics supported by :method: `scipy.spatial.distance.cdist` used for the distance calculations</span>
+<span class="sd">        name: str, default=&quot;p-median&quot;</span>
+<span class="sd">            name of the problem</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        PCenter object</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; from spopt.locate import PCenter</span>
+<span class="sd">        &gt;&gt;&gt; from spopt.locate.util import simulated_geo_points</span>
+<span class="sd">        &gt;&gt;&gt; import pulp</span>
+<span class="sd">        &gt;&gt;&gt; import spaghetti</span>
+
+<span class="sd">        Create regular lattice</span>
+
+<span class="sd">        &gt;&gt;&gt; lattice = spaghetti.regular_lattice((0, 0, 10, 10), 9, exterior=True)</span>
+<span class="sd">        &gt;&gt;&gt; ntw = spaghetti.Network(in_data=lattice)</span>
+<span class="sd">        &gt;&gt;&gt; street = spaghetti.element_as_gdf(ntw, arcs=True)</span>
+<span class="sd">        &gt;&gt;&gt; street_buffered = geopandas.GeoDataFrame(</span>
+<span class="sd">        ...                            geopandas.GeoSeries(street[&quot;geometry&quot;].buffer(0.2).unary_union),</span>
+<span class="sd">        ...                            crs=street.crs,</span>
+<span class="sd">        ...                            columns=[&quot;geometry&quot;])</span>
+
+<span class="sd">        Simulate points belong to lattice</span>
+
+<span class="sd">        &gt;&gt;&gt; demand_points = simulated_geo_points(street_buffered, needed=100, seed=5)</span>
+<span class="sd">        &gt;&gt;&gt; facility_points = simulated_geo_points(street_buffered, needed=5, seed=6)</span>
+
+<span class="sd">        Snap points to the network</span>
+
+<span class="sd">        &gt;&gt;&gt; ntw.snapobservations(demand_points, &quot;clients&quot;, attribute=True)</span>
+<span class="sd">        &gt;&gt;&gt; clients_snapped = spaghetti.element_as_gdf(ntw, pp_name=&quot;clients&quot;, snapped=True)</span>
+<span class="sd">        &gt;&gt;&gt; ntw.snapobservations(facility_points, &quot;facilities&quot;, attribute=True)</span>
+<span class="sd">        &gt;&gt;&gt; facilities_snapped = spaghetti.element_as_gdf(ntw, pp_name=&quot;facilities&quot;, snapped=True)</span>
+
+<span class="sd">        Create PCenter instance from cost matrix</span>
+
+<span class="sd">        &gt;&gt;&gt; pcenter_from_geodataframe = PCenter.from_geodataframe(</span>
+<span class="sd">        ...                                            clients_snapped,</span>
+<span class="sd">        ...                                            facilities_snapped,</span>
+<span class="sd">        ...                                            &quot;geometry&quot;,</span>
+<span class="sd">        ...                                            &quot;geometry&quot;,</span>
+<span class="sd">        ...                                            p_facilities=P_FACILITIES,</span>
+<span class="sd">        ...                                            distance_metric=&quot;euclidean&quot;</span>
+<span class="sd">        ...                                       )</span>
+<span class="sd">        &gt;&gt;&gt; pcenter_from_geodataframe = pcenter_from_geodataframe.solve(pulp.PULP_CBC_CMD(msg=False))</span>
+
+<span class="sd">        Get facility lookup demand coverage array</span>
+
+<span class="sd">        &gt;&gt;&gt; pcenter_from_geodataframe.facility_client_array()</span>
+<span class="sd">        &gt;&gt;&gt; pcenter_from_geodataframe.fac2cli</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">dem</span> <span class="o">=</span> <span class="n">gdf_demand</span><span class="p">[</span><span class="n">demand_col</span><span class="p">]</span>
+        <span class="n">fac</span> <span class="o">=</span> <span class="n">gdf_fac</span><span class="p">[</span><span class="n">facility_col</span><span class="p">]</span>
+
+        <span class="n">dem_type_geom</span> <span class="o">=</span> <span class="n">dem</span><span class="o">.</span><span class="n">geom_type</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+        <span class="n">fac_type_geom</span> <span class="o">=</span> <span class="n">fac</span><span class="o">.</span><span class="n">geom_type</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dem_type_geom</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">or</span> <span class="ow">not</span> <span class="s2">&quot;Point&quot;</span> <span class="ow">in</span> <span class="n">dem_type_geom</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="s2">&quot;Demand geodataframe contains mixed type geometries or is not a point. Be sure deriving centroid from geometries doesn&#39;t affect the results.&quot;</span><span class="p">,</span>
+                <span class="ne">Warning</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">dem</span> <span class="o">=</span> <span class="n">dem</span><span class="o">.</span><span class="n">centroid</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">fac_type_geom</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">or</span> <span class="ow">not</span> <span class="s2">&quot;Point&quot;</span> <span class="ow">in</span> <span class="n">fac_type_geom</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="s2">&quot;Facility geodataframe contains mixed type geometries or is not a point. Be sure deriving centroid from geometries doesn&#39;t affect the results.&quot;</span><span class="p">,</span>
+                <span class="ne">Warning</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">fac</span> <span class="o">=</span> <span class="n">fac</span><span class="o">.</span><span class="n">centroid</span>
+
+        <span class="n">dem_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">dem</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">dem</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()])</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">fac_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">fac</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">fac</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()])</span><span class="o">.</span><span class="n">T</span>
+
+        <span class="k">if</span> <span class="n">gdf_demand</span><span class="o">.</span><span class="n">crs</span> <span class="o">!=</span> <span class="n">gdf_fac</span><span class="o">.</span><span class="n">crs</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;geodataframes crs are different: gdf_demand-</span><span class="si">{</span><span class="n">gdf_demand</span><span class="o">.</span><span class="n">crs</span><span class="si">}</span><span class="s2">, gdf_fac-</span><span class="si">{</span><span class="n">gdf_fac</span><span class="o">.</span><span class="n">crs</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+
+        <span class="n">distances</span> <span class="o">=</span> <span class="n">cdist</span><span class="p">(</span><span class="n">dem_data</span><span class="p">,</span> <span class="n">fac_data</span><span class="p">,</span> <span class="n">distance_metric</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_cost_matrix</span><span class="p">(</span><span class="n">distances</span><span class="p">,</span> <span class="n">p_facilities</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PCenter.facility_client_array"><a class="viewcode-back" href="../../../generated/spopt.locate.PCenter.html#spopt.locate.PCenter.facility_client_array">[docs]</a>    <span class="k">def</span> <span class="nf">facility_client_array</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create an array 2d MxN, where m is number of facilities and n is number of clients. Each row represent a facility and has an array containing clients index meaning that the facility-i cover the entire array.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">fac_vars</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;fac_vars&quot;</span><span class="p">)</span>
+        <span class="n">cli_vars</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;cli_assgn_vars&quot;</span><span class="p">)</span>
+        <span class="n">len_fac_vars</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">fac_vars</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">fac2cli</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">len_fac_vars</span><span class="p">):</span>
+            <span class="n">array_cli</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">if</span> <span class="n">fac_vars</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cli_vars</span><span class="p">)):</span>
+                    <span class="k">if</span> <span class="n">cli_vars</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">array_cli</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">fac2cli</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">array_cli</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PCenter.solve"><a class="viewcode-back" href="../../../generated/spopt.locate.PCenter.html#spopt.locate.PCenter.solve">[docs]</a>    <span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">solver</span><span class="p">:</span> <span class="n">pulp</span><span class="o">.</span><span class="n">LpSolver</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Solve the PCenter model</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        solver: pulp.LpSolver</span>
+<span class="sd">            solver supported by pulp package</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        PCenter object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">solver</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div></div>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+      
+    </p>
+    <p>
+        &copy; Copyright 2020-, pysal developers.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.2.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
